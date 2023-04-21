@@ -10,6 +10,7 @@ bot = telebot.TeleBot(os.getenv("BOT_TOKEN"))
 def send_welcome(message):
     bot.reply_to(message, "Selamat datang di bot telegram buatan Fauzan Gifari. Silahkan ketik /help untuk melihat daftar perintah yang tersedia.")
     bot.register_next_step_handler(message, back)
+
     @bot.message_handler(commands=['help'])
     def help_bot(message):
         bot.reply_to(message, '''
@@ -17,7 +18,8 @@ def send_welcome(message):
         \n => /kalkulator untuk menggunakan kalkulator sederhana dengan operator (+, -, *, /).
         \n => /quotes untuk mendapatkan quotes dari bot ini.
         \n => /help untuk melihat daftar perintah yang tersedia.
-        \n => /start untuk memulai bot ini.''')
+        \n => /start untuk memulai bot ini.
+        \n => /about untuk melihat informasi tentang pembuat bot ini.''')
 
     @bot.message_handler(commands=['kalkulator'])
     def kalkulator(message):
@@ -62,40 +64,46 @@ def send_welcome(message):
         bot.register_next_step_handler(message, get_angka_pertama)
 
     @bot.message_handler(commands=['quotes'])
-    def pantun1(message):
+    def quotes1(message):
         bot.reply_to(message, "Biarlah semesta bekerja, kita rebahan aja")
-        bot.register_next_step_handler(message, pantun2)
+        bot.register_next_step_handler(message, quotes2)
 
-    def pantun2(message):
+    def quotes2(message):
         quotes = message.text
         if quotes == 'lagi' or quotes == 'Lagi':
             bot.reply_to(message, "Tetap jalani hidup, walau jalannya lagi rusak")
-            bot.register_next_step_handler(message, pantun3)
+            bot.register_next_step_handler(message, quotes3)
         else:
             bot.reply_to(message, "Yahaha wahyuuu pal pale pal palee")
 
-    def pantun3(message):
+    def quotes3(message):
         quotes = message.text
         if quotes == 'lagi' or quotes == 'Lagi':
             bot.reply_to(message, "Hiduplah seperti tai ayam, walaupun dibawah tetapi tidak ada berani menginjaknya")
-            bot.register_next_step_handler(message, pantun4)
+            bot.register_next_step_handler(message, quotes4)
         else:
             bot.reply_to(message, "Yahaha wahyuuu pal pale pal palee")
 
-    def pantun4(message):
+    def quotes4(message):
         quotes = message.text
         if quotes == 'lagi' or quotes == 'Lagi':
             bot.reply_to(message, "Jangan pernah menyerah, tapi tau diri lahh")
-            bot.register_next_step_handler(message, pantun5)
+            bot.register_next_step_handler(message, quotes5)
         else:
             bot.reply_to(message, "Yahaha wahyuuu pal pale pal palee")
 
-    def pantun5(message):
+    def quotes5(message):
         quotes = message.text
         if quotes == 'lagi' or quotes == 'Lagi':
-            bot.reply_to(message, "Habis dah pantun ku, nanti aku buat lagi")
+            bot.reply_to(message, "Habis dah quotes ku, nanti ku buat lagi")
         else:
             bot.reply_to(message, "Yahaha wahyuuu pal pale pal palee")
+
+    @bot.message_handler(commands=['about'])
+    def about(message):
+        bot.reply_to(message, "Bot ini dibuat oleh Fauzan Gifari, kamu bisa mengunjungi instagram ku di https://www.instagram.com/fauzangfri")
+
+
     @bot.message_handler(func=lambda message: True)
     def echo_all(message):
         if message.text == 'Halo' or message.text == 'halo':
